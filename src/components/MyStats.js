@@ -114,16 +114,24 @@ export class Invest extends Component {
                             <p style={{ color: "white", float: "left" }}>Total Invested </p><p style={{ color: "white", float: "right" }}> {this.props.total_deposits} TRX</p><br /><br />
                             <p style={{ color: "white", float: "left" }}>Referred By</p><p style={{ color: "white", float: "right" }}> {this.props.upline}...</p><br /><br />
 
-                            <p style={{ color: "white", float: "left" }}>350% Limit Remaining </p><p style={{ color: "white", float: "right" }}> {this.props.limit_remaining} TRX</p><br /><br />
+                            <p style={{ color: "white", float: "left" }}>350% Limit Remaining </p><p style={{ color: "white", float: "right" }}> {Number(this.props.limit_remaining).toFixed(4)} TRX</p><br /><br />
                             <p style={{ color: "white", float: "left" }}>1.4% ROI Received</p>
-                            <p style={{ color: "white", float: "right" }}> {this.props.roiClaimed} TRX</p><br /><br />
+                            <p style={{ color: "white", float: "right" }}> {Number(this.props.roiClaimed).toFixed(4)} TRX</p><br /><br />
 
 
                             <p style={{ color: "white", float: "left" }}>Direct Commissions </p><p style={{ color: "white", float: "right" }}> {this.props.direct_bonus} TRX</p><br /><br />
                             <p style={{ color: "white", float: "left" }}>Generation Commissions </p><p style={{ color: "white", float: "right" }}> {this.props.gen_bonus} TRX</p><br /><br />
-                            <p style={{ color: "white", float: "left" }}>Total TRX Received </p><p style={{ color: "white", float: "right" }}> {this.props.payouts} TRX</p><br /><br />
+                            <p style={{ color: "white", float: "left" }}>Total TRX Received </p><p style={{ color: "white", float: "right" }}>
 
-                            <p style={{ color: "white", float: "left" }}>Withdrawable </p><p style={{ color: "white", float: "right" }}> {this.props.roiUnclaimed} TRX</p><br /><br />
+
+                                {Number(this.props.payouts.toFixed(4))} TRX</p><br /><br />
+
+                            <p style={{ color: "white", float: "left" }}>Withdrawable </p><p style={{ color: "white", float: "right" }}>
+
+                                {this.props.roiLoading ? <span>calculating...  </span> :
+                                    Number(this.props.roiUnclaimed.toFixed(4))}
+                                <span style={{ paddingLeft: "5px" }}>TRX</span></p><br /><br />
+
                             <form
                                 onSubmit={(event) => {
                                     event.preventDefault();

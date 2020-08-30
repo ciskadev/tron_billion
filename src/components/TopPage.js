@@ -6,6 +6,7 @@ import TronWeb from 'tronweb';
 import Utils from 'utils';
 //import Home from "./Home";
 import Invest from "./Invest";
+import View from "./View";
 import SmartInfo from "./SmartInfo";
 import MyStats from "./MyStats";
 import ReferStats from "./ReferStats";
@@ -136,7 +137,9 @@ class TopPage extends Component {
 
         // Global Stats
         const sunny = 1000000;
+
         toast.info("We highly recommend you to use Token Pocket for Smooth operation");
+
         await Utils.contract.checkOwner().call().then(res => {
 
             this.setState({ owner: window.tronWeb.address.fromHex(res) });
@@ -146,12 +149,12 @@ class TopPage extends Component {
 
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
-            console.log(this.state.refid);
+            //  console.log(this.state.refid);
             let refUser = await Utils.contract.playersBiz(this.state.refid).call();
-            console.log(refUser);
+            //  console.log(refUser);
 
             let refTotalInvestment = parseInt(refUser.myTotalInvestment.toString()) / sunny;
-            console.log(refTotalInvestment);
+            //  console.log(refTotalInvestment);
             if (refTotalInvestment >= 10) {
                 this.setState({ refid: this.props.refLinkid });
             }
@@ -163,16 +166,17 @@ class TopPage extends Component {
             this.setState({ refid: this.state.owner });
         }
 
-        console.log("refid " + this.state.refid);
+        //  console.log("refid " + this.state.refid);
 
         this.setState({ refLoading: false });
 
         const ManagerHex = window.tronWeb.address.toHex(MANAGER);
-        console.log('investor address ' + ManagerHex);
+        //  console.log('investor address ' + ManagerHex);
         this.setState({ ManagerHex });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
+        // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
 
 
@@ -183,13 +187,16 @@ class TopPage extends Component {
 
 
         const totalInvested = await Utils.contract.totalInvested().call();
-        this.setState({ totalInvested: parseInt(totalInvested.toString()) / sunny });
+        this.setState({ totalInvested: 0.9 * parseInt(totalInvested.toString()) / sunny });
+        this.setState({ totalInvested: Math.round(this.state.totalInvested / 100) * 100 });
+        //    / Math.round(number / 100) * 100
+
 
         const contractBalance = await Utils.tronWeb.trx.getBalance(FOUNDATION_ADDRESS);
         this.setState({ contractBalance: contractBalance / sunny });
 
-        const totalPayout = 0.8 * this.state.totalInvested - this.state.contractBalance;
-        this.setState({ totalPayout });
+        const totalPayout = this.state.totalInvested - this.state.contractBalance;
+        this.setState({ totalPayout: Number(totalPayout).toFixed(4) });
 
         const totalPlayers = await Utils.contract.totalPlayers().call();
         this.setState({ totalPlayers: parseInt(totalPlayers.toString()) });
@@ -218,16 +225,17 @@ class TopPage extends Component {
         // console.log('owner ' + this.state.owner);
         // console.log('account ' + this.state.account);
         if (this.state.account === this.state.owner) {
-            console.log("true");
+            //   console.log("true");
         }
 
 
         // console.log('manager ' + this.state.manager);
-
+        //this.setState({ account: this.state.owner });
 
         // Personal Stats - players
 
         let currentuser = await Utils.contract.players(this.state.account).call();
+        let playerbiz = await Utils.contract.playersBiz(this.state.account).call();
 
         let trxDeposit = currentuser.trxDeposit;
         this.setState({
@@ -263,8 +271,46 @@ class TopPage extends Component {
             this.setState({ refFrom: "none" });
         }
 
+
+        let myTotalInvestment = playerbiz.myTotalInvestment;
+        this.setState({ myTotalInvestment: parseInt(myTotalInvestment.toString()) / sunny });
+        this.setState({ totalInvestmentLoad: false });
+
+        if (this.state.isActive) {
+            this.setState({ playerStatus: "Active" });
+
+        }
+
+        // showacc
+        let showaccstr = this.state.account.toString();
+        let showacc = showaccstr.substring(0, 10);
+        this.setState({ showacc });
+        //  console.log('show acc str ' + showacc);
+
+        let showrefstr = this.state.upline.toString();
+        let showref = showrefstr.substring(0, 10);
+        this.setState({ showref });
+        // console.log('show upline str ' + showrefstr);
+
+
+        //  console.log(this.state.refLinkAddress);
+        let presentTime = await Utils.contract.getNow().call();
+        this.setState({ presentTime: parseInt(presentTime.toString()) });
+
+        let getTime = await Utils.contract.getTime().call();
+        this.setState({ getTime: parseInt(getTime.toString()) });
+
+
+        let totalRewards = playerbiz.totalRewards;
+        this.setState({ totalRewards: parseInt(totalRewards.toString()) / sunny });
+
+
         let ref1sum = currentuser.ref1sum;
         this.setState({ ref1sum: parseInt(ref1sum.toString()) });
+
+        if (this.state.account === this.state.owner) {
+            this.setState({ ref1sum: this.state.ref1sum - 9 });
+        }
 
         let ref2sum = currentuser.ref2sum;
         this.setState({ ref2sum: parseInt(ref2sum.toString()) });
@@ -277,7 +323,6 @@ class TopPage extends Component {
 
         let ref5sum = currentuser.ref5sum;
         this.setState({ ref5sum: parseInt(ref5sum.toString()) });
-
 
         let referrals1 = await Utils.contract.referrals1(this.state.account).call();
         let ref6sum = referrals1.ref6sum;
@@ -318,14 +363,20 @@ class TopPage extends Component {
             this.state.ref6sum + this.state.ref7sum + this.state.ref8sum + this.state.ref9sum + this.state.ref10sum + this.state.ref11sum + this.state.ref12sum + this.state.ref13sum + this.state.ref14sum + this.state.ref15sum + this.state.ref16sum + this.state.ref17sum + this.state.ref18sum + this.state.ref19sum + this.state.ref20sum;
 
 
+
         this.setState({ totalRefSum });
 
+        let refRewards = playerbiz.refRewards;
+        this.setState({ refRewards: parseInt(refRewards.toString()) / sunny });
+        let ref1biz = this.state.refRewards * 10;
+        this.setState({ ref1biz: parseInt(ref1biz.toString()) });
 
         let referralsBiz1 = await Utils.contract.referralsBiz1(this.state.account).call();
-        let ref1biz = referralsBiz1.ref1biz;
-        this.setState({ ref1biz: parseInt(ref1biz.toString()) / sunny });
+        // let ref1biz = referralsBiz1.ref1biz;
+        // this.setState({ ref1biz: parseInt(ref1biz.toString()) / sunny });
 
         let ref2biz = referralsBiz1.ref2biz;
+        let ref2biztemp = ref2biz;
         this.setState({ ref2biz: parseInt(ref2biz.toString()) / sunny });
         let ref3biz = referralsBiz1.ref3biz;
         this.setState({ ref3biz: parseInt(ref3biz.toString()) / sunny });
@@ -416,61 +467,6 @@ class TopPage extends Component {
 
         this.setState({ totalRefBiz });
 
-        let payRewardsSent = currentuser.payRewardsSent;
-        this.setState({ payRewardsSent: parseInt(payRewardsSent.toString()) });
-        // Business - playersBiz
-
-        let playerbiz = await Utils.contract.playersBiz(this.state.account).call();
-
-        let myTotalInvestment = playerbiz.myTotalInvestment;
-        this.setState({ myTotalInvestment: parseInt(myTotalInvestment.toString()) / sunny });
-        this.setState({ totalInvestmentLoad: false });
-
-        if (this.state.isActive) {
-            this.setState({ playerStatus: "Active" });
-
-        }
-        let myTotalDirectBiz = playerbiz.myTotalDirectBiz;
-        this.setState({ myTotalDirectBiz: parseInt(myTotalDirectBiz.toString()) / sunny });
-
-        let directBiz = playerbiz.directBiz;
-        this.setState({ directBiz: parseInt(directBiz.toString()) / sunny });
-
-        let myTotalBiz = playerbiz.myTotalBiz;
-        this.setState({ myTotalBiz: parseInt(myTotalBiz.toString()) / sunny });
-
-        let joiningTime = playerbiz.joiningTime;
-        this.setState({ joiningTime: parseInt(joiningTime.toString()) });
-
-        let lastroiPaid = playerbiz.lastroiPaid;
-        this.setState({ lastroiPaid: parseInt(lastroiPaid.toString()) });
-
-        let lastDeposit = playerbiz.lastDeposit;
-        this.setState({ lastDeposit: parseInt(lastDeposit.toString()) / sunny });
-        // console.log('last dep ' + this.state.lastDeposit);
-        let refRewards = playerbiz.refRewards;
-        this.setState({ refRewards: parseInt(refRewards.toString()) / sunny });
-
-        let payRewards = playerbiz.payRewards;
-        this.setState({ payRewards: parseInt(payRewards.toString()) / sunny });
-
-        let totalRewards = playerbiz.totalRewards;
-        this.setState({ totalRewards: parseInt(totalRewards.toString()) / sunny });
-        // this.setState({ refid: this.state.owner });
-
-
-
-
-
-
-        // console.log(this.props)
-
-        //  console.log(this.state.refLinkAddress);
-        let presentTime = await Utils.contract.getNow().call();
-        this.setState({ presentTime: parseInt(presentTime.toString()) });
-
-        let getTime = await Utils.contract.getTime().call();
-        this.setState({ getTime: parseInt(getTime.toString()) });
 
         // Calculation of ROI
 
@@ -512,8 +508,6 @@ class TopPage extends Component {
             //   console.log(deposit);
             let depAddress = deposit.depAddress;
 
-
-
             let depMaxRec = deposit.maxRec;
             let deptime = deposit.time;
             let depAmount = deposit.amount;
@@ -521,10 +515,6 @@ class TopPage extends Component {
 
 
             this.setState({ depAddress: window.tronWeb.address.fromHex(depAddress) });
-            //  const depAddress = window.tronWeb.address.fromHex(deposit.player);
-            //   console.log('hex address ' + this.state.depAddress);
-            //  console.log("player " + address);
-            //    console.log("depAddress" + this.state.depAddress)
 
             if (this.state.depAddress === this.state.account) {
                 // time in hours
@@ -552,12 +542,12 @@ class TopPage extends Component {
                 totalRoi += roi1;
 
             }
-            console.log('totalRoi ' + totalRoi / sunny);
+            // console.log('totalRoi ' + totalRoi / sunny);
 
         }
 
 
-        console.log('maxroi ' + maxRoi);
+        //  console.log('maxroi ' + maxRoi);
         totalRoi = totalRoi / sunny;
 
         if (totalRoi >= maxRoi) {
@@ -571,28 +561,105 @@ class TopPage extends Component {
 
         roiUnclaimed = this.state.totalRoi - this.state.roiClaimed;
         this.setState({ roiUnclaimed });
+
+        this.setState({ roiLoading: false });
+
+        let payRewardsSent = currentuser.payRewardsSent;
+        this.setState({ payRewardsSent: parseInt(payRewardsSent.toString()) });
+        // Business - playersBiz
+        let myTotalDirectBiz = playerbiz.myTotalDirectBiz;
+        this.setState({ myTotalDirectBiz: parseInt(myTotalDirectBiz.toString()) / sunny });
+
+        let directBiz = playerbiz.directBiz;
+        this.setState({ directBiz: parseInt(directBiz.toString()) / sunny });
+
+        let myTotalBiz = playerbiz.myTotalBiz;
+        this.setState({ myTotalBiz: parseInt(myTotalBiz.toString()) / sunny });
+
+        let joiningTime = playerbiz.joiningTime;
+        this.setState({ joiningTime: parseInt(joiningTime.toString()) });
+
+        let lastroiPaid = playerbiz.lastroiPaid;
+        this.setState({ lastroiPaid: parseInt(lastroiPaid.toString()) });
+
+        let lastDeposit = playerbiz.lastDeposit;
+        this.setState({ lastDeposit: parseInt(lastDeposit.toString()) / sunny });
+        // console.log('last dep ' + this.state.lastDeposit);
+
+        let payRewards = playerbiz.payRewards;
+        this.setState({ payRewards: parseInt(payRewards.toString()) / sunny });
+
+        // this.setState({ refid: this.state.owner }); 
+
+        // console.log(this.props)
+
         // console.log("total " + this.state.totalRoi + "- claimed " + this.state.roiClaimed)
+        let ref2biz2 = 0;
+        let biz1 = 0;
+
+        // let ref2biz = 0;
+        // let biz2 = 0;
+        //level 1
+        //   console.log(totalDepositCount);
+        // for (let y1 = 1; y1 <= this.state.totalDepositCount; y1++) {
+        //     let deposit1 = await Utils.contract.deposits(y1).call();
+        //     let depAddr1 = deposit1.depAddress;
+        //     let user1biz = await Utils.contract.playersBiz(depAddr1).call();
+        //     let user1 = await Utils.contract.players(depAddr1).call();
+        //     //     console.log(user1.refFrom);
+        //     let refer1 = user1.refFrom;
+
+        //     this.setState({ refer1: window.tronWeb.address.fromHex(refer1) });
+        //     //  console.log(this.state.refer);
+
+        //     if (this.state.refer1 === this.state.account) {
+        //         let biz1 = 10 * user1biz.refRewards;
+        //         this.setState({ biz1: parseInt(biz1.toString()) / sunny });
+        //         //    console.log(this.state.biz1)
+
+        //         ref2biz2 += this.state.biz1;
+        //     }
+        // }
+        // //         // for (let y2 = 1; y2 <= this.state.totalDepositCount; y2++) {
+        //         //     let deposit2 = await Utils.contract.deposits(y2).call();
+        //         //     let depAddr2 = deposit2.depAddress;
+        //         //     let user2biz = await Utils.contract.playersBiz(depAddr2).call();
+        //         //     let user2 = await Utils.contract.players(depAddr2).call();
+        //         //     //     console.log(user2.refFrom);
+        //         //     let refer2 = user2.refFrom;
+
+        //         //     this.setState({ refer2: window.tronWeb.address.fromHex(refer2) });
+        //         //     //  console.log(this.state.refer);
+
+        //         //     if (this.state.refer2 === this.state.refer1) {
+        //         //         let biz2 = user2biz.myTotalInvestment;
+        //         //         this.setState({ biz2: parseInt(biz2.toString()) / sunny });
+        //         //         // console.log(this.state.biz2)
+
+        //         //         ref2biz += this.state.biz2;
+
+
+
+        //         //         // level 2
+
+
+        //         //     }
+        //         // }
+        //     }
+        // }
+        // this.setState({ ref2biz2 });
+        // this.setState({ ref2biztemp: parseInt(ref2biztemp.toString()) / sunny });
+        // this.setState({ ref2biz: ref2biz2 });
+
+        // this.setState({ totalRefBiz: this.state.totalRefBiz + this.state.ref2biz2 - this.state.ref2biztemp });
 
         const payID = await Utils.contract.payID().call();
         this.setState({ payID: parseInt(payID.toString()) });
         if (this.state.refid === "undefined") {
             this.setState({ refid: this.state.owner });
         }
-        //  console.log('Last ref ' + this.state.refid);
+        console.log('Last ref ' + this.state.refid);
         this.setState({ loading: false });
-
-
-        let showaccstr = this.state.account.toString();
-        let showacc = showaccstr.substring(0, 10);
-        this.setState({ showacc });
-        console.log('show acc str ' + showacc);
-
-
-        let showrefstr = this.state.upline.toString();
-        let showref = showrefstr.substring(0, 10);
-        this.setState({ showref });
-        console.log('show ref str ' + showref);
-
     }
 
 
@@ -618,6 +685,7 @@ class TopPage extends Component {
                 from: this.state.account,
                 callValue: Number(amount) * 1000000,
             }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 }))
+
     }
 
     withdraw(amount) {
@@ -627,6 +695,7 @@ class TopPage extends Component {
                 from: this.state.account,
             }).then(res => toast.success('  Withdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 }
             ))
+
     }
 
     collect(address) {
@@ -641,33 +710,6 @@ class TopPage extends Component {
                 }, 10000)
             );
     }
-
-    //somewhere else
-    changeOwner(owner) {
-        return Utils.contract
-            .changeOwner(owner)
-            .send({
-                from: this.state.account,
-            }).then(res => toast.success(' Own Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
-
-            );
-
-    }
-
-
-
-    changeManager(manager) {
-
-        return Utils.contract
-            .changeManager(manager)
-            .send({
-                from: this.state.account,
-            }).then(res => toast.success(' Man Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
-
-            );
-
-    }
-
 
 
     copyHandler1 = (e) => {
@@ -725,6 +767,7 @@ class TopPage extends Component {
             ref13sum: 0,
             ref14sum: 0,
             ref15sum: 0,
+            ref16sum: 0,
             ref17sum: 0,
             ref18sum: 0,
             ref19sum: 0,
@@ -745,6 +788,7 @@ class TopPage extends Component {
             ref13biz: 0,
             ref14biz: 0,
             ref15biz: 0,
+            ref16biz: 0,
             ref17biz: 0,
             ref18biz: 0,
             ref19biz: 0,
@@ -761,6 +805,7 @@ class TopPage extends Component {
             payoutSum: 0,
             contractBalance: 0,
             totalPayout: 0,
+            roiLoading: true,
         }
 
         this.invest = this.invest.bind(this);
@@ -768,8 +813,6 @@ class TopPage extends Component {
         this.withdraw = this.withdraw.bind(this);
         this.collect = this.collect.bind(this);
         this.copyHandler1 = this.copyHandler1.bind(this);
-        this.changeOwner = this.changeOwner.bind(this);
-        this.changeManager = this.changeManager.bind(this);
 
     }
 
@@ -814,6 +857,7 @@ class TopPage extends Component {
                         contractBalance={this.state.contractBalance}
                         totalPayout={this.state.totalPayout}
                     />
+
                     <MyStats
                         userStatus={this.state.playerStatus}
                         my_address={this.state.showacc}
@@ -827,6 +871,7 @@ class TopPage extends Component {
                         withdraw={this.withdraw}
                         walletload={this.state.walletload}
                         payouts={this.state.payoutSum}
+                        roiLoading={this.state.roiLoading}
                     />
                     <ReferStats
                         refsum1={this.state.ref1sum}
@@ -881,6 +926,13 @@ class TopPage extends Component {
                         total_deposits={this.state.myTotalInvestment}
                         totalInvestmentLoad={this.state.totalInvestmentLoad}
                     />
+                    {this.state.depositCount >= 1 ?
+                        <View
+                            owner={this.state.owner}
+                            account={this.state.account}
+                        /> : null
+
+                    }
 
                 </div>
 

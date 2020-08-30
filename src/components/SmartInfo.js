@@ -109,10 +109,8 @@ export class SmartInfo extends Component {
                             </p><br /><br />
 
                             <p style={{ color: "white", float: "left" }}>Total Deposits </p>
-                            {this.props.totalInvested > 210000
-                                ? <p style={{ color: "white", float: "right" }}> {0.9 * this.props.totalInvested} TRX</p>
-                                : <p style={{ color: "white", float: "right" }}> {this.props.totalInvested} TRX</p>
-                            }
+                            <p style={{ color: "white", float: "right" }}> {this.props.totalInvested} TRX</p>
+
                             <br /><br />
                             <p style={{ color: "white", float: "left" }}>Smart Contract Balance </p><p style={{ color: "white", float: "right" }}> {this.props.contractBalance} TRX</p><br /><br />
                             <p style={{ color: "white", float: "left" }}>Total Paid to Members </p><p style={{ color: "white", float: "right" }}> {this.props.totalPayout} TRX</p><br /><br />

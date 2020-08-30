@@ -133,11 +133,10 @@ export class Invest extends Component {
                                 <a className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
                                 <a className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
                                 <a className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
+
+
                                 {this.props.refLoading ? <img src={loader} alt="loading..." width="30px" style={{ paddingLeft: "20px" }} /> :
                                     <button type="submit" className="btn btn-success" style={investButton}>Top up</button>}
-
-
-
                                 }
 
                             </form>

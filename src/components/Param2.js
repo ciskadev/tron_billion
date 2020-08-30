@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import Top3 from "./TopPage3";
+import Top from "./TopPage";
 
 class Param2 extends Component {
     render() {
         console.log('param2 ' + this.props);
         return (
             <div>
-                <Top3
-                    viewID={this.props.match.params.id}
+                <Top
+                    refLinkid={this.props.match.params.id}
                 />
             </div>
         )

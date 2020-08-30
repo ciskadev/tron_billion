@@ -176,8 +176,8 @@ contract TronBillion {
         uint directBiz; 
         uint myTotalBiz;
         uint joiningTime;        
-         uint lastroiPaid;       
-         uint refRewards;
+        uint lastroiPaid;       
+        uint refRewards;
         uint payRewards;
         uint roiRewards;
         uint totalRewards; 

@@ -3,7 +3,7 @@ import back from "./img/back4.jpg"
 import back1 from "./img/back.jpg"
 import loader from "./img/loadicon1.gif"
 
-let url = "https://tronbillion.io/";
+let url = "https://tronbillion.io/refer/";
 
 export class ShareStats extends Component {
 
