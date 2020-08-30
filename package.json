@@ -1,7 +1,7 @@
 {
-  "name": "tron-billion",
+  "name": "tron-foundation",
   "version": "0.1.0",
-  "homepage": "https://tronbillion.io/",
+  "homepage": "https://trxfoundation.live/",
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
@@ -21,10 +21,12 @@
     "wow.js": "^1.2.2"
   },
   "scripts": {
+    "client-install": "npm install",
     "start": "react-scripts start",
     "build": "react-scripts build && npx rimraf docs && npx move-cli build build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
