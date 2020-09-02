@@ -118,14 +118,9 @@ export class Invest extends Component {
                             <p style={{ color: "white", float: "left" }}>1.4% ROI Received</p>
                             <p style={{ color: "white", float: "right" }}> {Number(this.props.roiClaimed).toFixed(4)} TRX</p><br /><br />
 
-
-                            <p style={{ color: "white", float: "left" }}>Direct Commissions </p><p style={{ color: "white", float: "right" }}> {this.props.direct_bonus} TRX</p><br /><br />
-                            <p style={{ color: "white", float: "left" }}>Generation Commissions </p><p style={{ color: "white", float: "right" }}> {this.props.gen_bonus} TRX</p><br /><br />
-                            <p style={{ color: "white", float: "left" }}>Total TRX Received </p><p style={{ color: "white", float: "right" }}>
-
-
-                                {Number(this.props.payouts.toFixed(4))} TRX</p><br /><br />
-
+                            <p style={{ color: "white", float: "left" }}>Direct Commissions </p><p style={{ color: "white", float: "right" }}> {Number(this.props.direct_bonus).toFixed(4)} TRX</p><br /><br />
+                            <p style={{ color: "white", float: "left" }}>Generation Commissions </p><p style={{ color: "white", float: "right" }}> {Number(this.props.gen_bonus).toFixed(4)} TRX</p><br /><br />
+                            <p style={{ color: "white", float: "left" }}>Total TRX Received </p><p style={{ color: "white", float: "right" }}> {Number(this.props.payouts).toFixed(4)} TRX</p><br /><br />
                             <p style={{ color: "white", float: "left" }}>Withdrawable </p><p style={{ color: "white", float: "right" }}>
 
                                 {this.props.roiLoading ? <span>calculating...  </span> :
