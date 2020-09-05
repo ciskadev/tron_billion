@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import back1 from "./img/gifback1.gif"
+import back1 from "./img/gifback2.gif"
 import TronWeb from 'tronweb';
 import Utils from 'utils';
 //import Home from "./Home";
@@ -725,7 +725,7 @@ class TopPage extends Component {
             walletload: true,
             balanceload: true,
             totalInvestmentLoad: true,
-            playerStatus: " Active",
+            playerStatus: "In Active",
             boostStatus: "In Active",
 
             account: '',
