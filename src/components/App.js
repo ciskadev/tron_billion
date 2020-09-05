@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Top from "./TopPage";
+import Top from "./TopPageLook";
 import { Route, BrowserRouter } from "react-router-dom";
 import Param from "./Param";
 import Param2 from "./Param2";
