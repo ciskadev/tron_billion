@@ -58,7 +58,7 @@ export class SmartInfo extends Component {
 
     render() {
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, #8D183B, black)", opacity: "80%", marginTop: "60px", borderRadius: "20px", border: "3px solid green", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right, #8D183B, black)", opacity: "80%", marginTop: "60px", borderRadius: "20px", border: "3px solid black", marginLeft: "20px", marginRight: "20px",
             borderImage: { back1 }
 
         };
