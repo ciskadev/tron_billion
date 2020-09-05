@@ -89,14 +89,8 @@ export class Invest extends Component {
     render() {
 
         const colStyle = {
-            backgroundColor: "none", opacity: "60%", marginTop: "20px", borderRadius: "20px", border: "3px solid green", marginLeft: "20px", marginRight: "20px",
-            borderImage: { back1 }
-
+            backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "80%", marginTop: "20px", borderRadius: "20px", border: "3px solid green", marginLeft: "20px", marginRight: "20px",
         };
-        const h2Style = {
-            fontSize: "20px", color: "black", textAlign: "center", fontFamily: "MyFont", margin: "20px", paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold", fontWeight: "bold"
-        }
-
 
         const addButton = {
             display: "inline - block",
@@ -111,8 +105,8 @@ export class Invest extends Component {
             display: "inline - block",
             padding: "0.5em 1em",
             textDecoration: "none",
-            color: "black",
-            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundColor: "yellow", fontSize: "18px"
+            color: "white",
+            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundImage: "linear-gradient(to right, green, blue)", opacity: "80%", fontSize: "18px"
         }
 
         return (
@@ -121,7 +115,7 @@ export class Invest extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundColor: "yellow", borderRadius: "5px", color: "black", textAlign: "center", fontWeight: "bold", fontSize: "24px" }}>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #474708, blue)", opacity: "80%", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "24px" }}>
                             Invest Section</div>
 
                         <br />

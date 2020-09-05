@@ -7,8 +7,8 @@ import Utils from 'utils';
 import Invest from "./Invest2";
 import Plan from "./Invest3";
 import View from "./View";
-import SmartInfo from "./SmartInfo";
-import MyStats from "./MyStats";
+import SmartInfo from "./SmartInfo2";
+import MyStats from "./MyStats2";
 import ReferStats from "./ReferStats";
 import ShareStats from "./ShareStats";
 import Timer from "./Timer";
@@ -843,15 +843,29 @@ class TopPage extends Component {
                         depositCount={this.state.depositCount}
                         account={this.state.account}
                     />
-                    <Plan
-                        account={this.state.account}
-                        refid={this.state.refid}
-                        depositCount={this.state.depositCount}
-                        refLoading={this.state.refLoading}
-                        invest={this.invest}
-                        reinvest={this.reinvest}
+                    <SmartInfo
+                        smartLoading={this.state.smartLoading}
+                        totalInvested={this.state.totalInvested}
+                        contractBalance={this.state.contractBalance}
+                        totalPayout={this.state.totalPayout}
                     />
-                    <div style={{ paddingBottom: "1000px" }}></div>
+
+                    <MyStats
+                        userStatus={this.state.playerStatus}
+                        my_address={this.state.showacc}
+                        upline={this.state.showref}
+                        direct_bonus={this.state.refRewards}
+                        gen_bonus={this.state.payRewards}
+                        roiUnclaimed={this.state.roiUnclaimed}
+                        roiClaimed={this.state.roiClaimed}
+                        total_deposits={this.state.myTotalInvestment}
+                        limit_remaining={this.state.maxRec1}
+                        withdraw={this.withdraw}
+                        walletload={this.state.walletload}
+                        payouts={this.state.payoutSum}
+                        roiLoading={this.state.roiLoading}
+                    />
+                    <div style={{ paddingBottom: "100px" }}></div>
                 </div>
 
             </div >
