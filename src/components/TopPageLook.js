@@ -833,7 +833,7 @@ class TopPage extends Component {
                 </div>
                 <div style={backStyle}>
                     <div style={{ textAlign: "center", paddingTop: "20px" }}>
-                        <a href={url} >  <img src={require("./img/logo2.png")} alt="Logo" width="400px" /></a>
+                        <a href={url} >  <img src={require("./img/logo2.png")} alt="Logo" width="300px" /></a>
                     </div>
 
                     <Invest

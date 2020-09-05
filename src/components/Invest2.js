@@ -32,9 +32,9 @@ export class Invest extends Component {
 
     }
 
-    invest(refid, amount) {
+    async invest(refid, amount) {
 
-        return Utils.contract
+        await Utils.contract
             .invest(refid)
             .send({
                 from: this.state.account,
@@ -89,27 +89,21 @@ export class Invest extends Component {
     render() {
 
         const colStyle = {
-            backgroundColor: "none", opacity: "60%", marginTop: "20px", borderRadius: "20px", border: "5px solid white", marginLeft: "20px", marginRight: "20px",
+            backgroundColor: "none", opacity: "60%", marginTop: "20px", borderRadius: "20px", border: "3px solid green", marginLeft: "20px", marginRight: "20px",
             borderImage: { back1 }
 
         };
         const h2Style = {
-            fontSize: "30px", color: "orange", textAlign: "center", fontFamily: "MyFont", margin: "20px", paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold", fontWeight: "bold"
-        }
-        const h3Style = {
-            fontSize: "15px", color: "orange", textAlign: "left", fontFamily: "MyFont", margin: "20px", paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold"
+            fontSize: "20px", color: "black", textAlign: "center", fontFamily: "MyFont", margin: "20px", paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold", fontWeight: "bold"
         }
 
-        const h4Style = {
-            fontSize: "15px", color: "orange", textAlign: "right", fontFamily: "MyFont", margin: "20px", paddingTop: "10px", paddingBottom: "10px", fontWeight: "bold"
-        }
 
         const addButton = {
             display: "inline - block",
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "#FFF",
-            transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "2px solid white", backgroundColor: "black"
+            transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
 
         }
 
@@ -117,19 +111,20 @@ export class Invest extends Component {
             display: "inline - block",
             padding: "0.5em 1em",
             textDecoration: "none",
-            color: "#FFF",
-            transition: ".4s", marginTop: "20px", marginLeft: "10px", marginBottom: "20px", fontWeight: "3px", fontFamily: "MyFont", textAlign: "right", border: "2px solid white", backgroundColor: "green"
+            color: "black",
+            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", border: "2px solid white", backgroundColor: "yellow", fontSize: "18px"
         }
 
         return (
-            <div>
+            <div><br />
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <h2 style={h2Style}>Invest</h2>
+                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundColor: "yellow", borderRadius: "5px", color: "black", textAlign: "center", fontWeight: "bold", fontSize: "24px" }}>
+                            Invest Section</div>
 
-
+                        <br />
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
                             <form
                                 onSubmit={(event) => {
@@ -152,7 +147,7 @@ export class Invest extends Component {
                                 }}
 
                             >
-                                <input type="text" style={{ backgroundColor: "#000", borderRadius: "10px", height: "50px", opacity: "80%", color: "White", fontSize: "25px", paddingLeft: "30px", border: "2px solid white" }} value={this.state.count} />
+                                <input type="text" style={{ backgroundColor: "#000", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white" }} value={this.state.count} />
 
 
                                 <a className="btn btn-primary" style={addButton} onClick={this.button100}>+100</a>
