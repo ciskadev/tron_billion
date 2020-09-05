@@ -139,7 +139,7 @@ class TopPage extends Component {
         const sunny = 1000000;
 
         toast.info("We highly recommend you to use Token Pocket for Smooth operation");
-        toast.error("Tron nodes are offline and we are upgrading our server please be patient", { position: toast.POSITION.TOP_RIGHT, autoClose: 15000 });
+        // toast.error("Tron nodes are offline and we are upgrading our server please be patient", { position: toast.POSITION.TOP_RIGHT, autoClose: 15000 });
 
         await Utils.contract.checkOwner().call().then(res => {
 
