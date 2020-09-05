@@ -1,0 +1,243 @@
+import React, { Component } from 'react'
+import "./css/custom.css";
+import { toast } from 'react-toastify';
+import loader from "./img/loadicon1.gif"
+
+
+toast.configure();
+
+
+
+export class Plan extends Component {
+
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count1: 0,
+            count2: 0,
+            count3: 0,
+        }
+
+        this.firstzero = this.firstzero.bind(this);
+        this.secondzero = this.secondzero.bind(this);
+        this.thirdzero = this.thirdzero.bind(this);
+
+        this.firstbutton100 = this.firstbutton100.bind(this);
+        this.secondbutton100 = this.secondbutton100.bind(this);
+        this.thirdbutton100 = this.thirdbutton100.bind(this);
+
+        this.secondbutton1000 = this.secondbutton1000.bind(this);
+        this.thirdbutton1000 = this.thirdbutton1000.bind(this);
+
+        this.thirdbutton4000 = this.thirdbutton4000.bind(this);
+
+    }
+    firstzero(event) {
+        this.setState({ count1: 0 });
+    }
+    secondzero(event) {
+        this.setState({ count2: 0 });
+    }
+    thirdzero(event) {
+        this.setState({ count3: 0 });
+    }
+
+    firstbutton100(event) {
+        this.setState({ count1: this.state.count1 + 100 });
+    }
+
+    secondbutton100(event) {
+        this.setState({ count2: this.state.count2 + 100 });
+    }
+
+    thirdbutton100(event) {
+        this.setState({ count3: this.state.count3 + 100 });
+    }
+
+    secondbutton1000(event) {
+        this.setState({ count2: this.state.count2 + 1000 });
+    }
+    thirdbutton1000(event) {
+        this.setState({ count3: this.state.count3 + 1000 });
+    }
+    thirdbutton4000(event) {
+        this.setState({ count3: this.state.count3 + 4000 });
+    }
+
+
+    render() {
+        return (
+            <div>
+                <div style={{ paddingTop: "30px" }}></div>
+                <div className="demo">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-4 col-sm-6">
+                                <div className="pricingTable">
+
+
+                                    {this.props.depositCount === 0 ?
+                                        <form
+                                            onSubmit={(event) => {
+
+                                                event.preventDefault();
+                                                const refid = this.props.refid;
+                                                const amount = this.state.count1;
+
+                                                if (amount >= 0) {
+                                                    this.props.invest(refid, amount);
+
+                                                } else {
+                                                    toast.error("Min deposit is 100 TRX");
+                                                }
+
+
+                                            }}
+                                        >
+                                            <input className=" " type="text"
+                                                ref={(input) => {
+                                                    this.amount = input;
+                                                }}
+                                                style={{
+                                                    background: "none", border: "none",
+                                                    borderBottom: "1px solid #153772", color: "black", paddingTop: "10px", textAlign: "center"
+                                                }}
+                                                value={this.state.count1}
+                                                required />
+
+                                            <br />
+                                            <p>You should have ~2 TRX or more for transaction fee</p>
+                                            <a className="btn btn-primary"
+                                                style={{
+                                                    width: "60px",
+                                                    height: "60px",
+                                                    lineHeight: "60px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: "12px",
+                                                    color: "white", textAlign: "center",
+                                                    backgroundImage: -"webkit-linear-gradient(#000 0%, #ffaaaa 100%)",
+                                                    backgroundImage: "linear-gradient(#ad5389 0%, #3c1053 100%)",
+
+                                                }} onClick={this.firstbutton100}>+100</a>
+                                            <a className="btn btn-primary"
+                                                style={{
+                                                    width: "60px",
+                                                    height: "60px",
+                                                    lineHeight: "60px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: "12px",
+                                                    color: "white", textAlign: "center",
+                                                    backgroundImage: -"webkit-linear-gradient(#000 0%, #ffaaaa 100%)",
+                                                    backgroundImage: "linear-gradient(#ED213A 0%, #93291E 100%)",
+
+                                                }}
+                                                onClick={this.firstzero}>Zero</a><br />
+
+                                            {this.props.refLoading == false ?
+                                                <button type="submit" style={{
+                                                    fontFamily: "MyFont",
+
+                                                    display: "inline-block",
+                                                    padding: "0.5em 1em",
+                                                    textDecoration: "none",
+                                                    background: "#f7f7f7",
+                                                    borderLeft: "solid 6px #ff7c5c",
+                                                    color: "#ff7c5c",
+                                                    fontWeight: "bold",
+                                                    boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.29)",
+                                                    marginTop: "12px"
+
+                                                }}>Invest</button>
+                                                : <img src={loader} alt="loading..." width="30px" style={{ paddingLeft: "10px" }} />
+                                            }
+
+
+                                        </form>
+                                        : <form
+                                            onSubmit={(event) => {
+
+                                                event.preventDefault();
+                                                const amount = this.state.count1;
+
+                                                if (amount >= 0) {
+                                                    this.props.reinvest(amount);
+                                                } else {
+                                                    toast.error("Value less than last deposit");
+                                                }
+
+
+
+                                            }}
+                                        >
+                                            <input className=" " type="text"
+                                                ref={(input) => {
+                                                    this.amount = input;
+                                                }}
+                                                style={{
+                                                    background: "none", border: "none",
+                                                    borderBottom: "1px solid #153772", color: "black", paddingTop: "10px", textAlign: "center"
+                                                }}
+                                                value={this.state.count1}
+                                                required />
+
+                                            <br />
+                                            <p>You should have ~2 TRX or more for transaction fee</p>
+                                            <a className="btn btn-primary"
+                                                style={{
+                                                    width: "60px",
+                                                    height: "60px",
+                                                    lineHeight: "60px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: "12px",
+                                                    color: "white", textAlign: "center",
+                                                    backgroundImage: -"webkit-linear-gradient(#000 0%, #ffaaaa 100%)",
+                                                    backgroundImage: "linear-gradient(#ad5389 0%, #3c1053 100%)",
+
+                                                }} onClick={this.firstbutton100}>+100</a>
+                                            <a className="btn btn-primary"
+                                                style={{
+                                                    width: "60px",
+                                                    height: "60px",
+                                                    lineHeight: "60px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: "12px",
+                                                    color: "white", textAlign: "center",
+                                                    backgroundImage: -"webkit-linear-gradient(#000 0%, #ffaaaa 100%)",
+                                                    backgroundImage: "linear-gradient(#ED213A 0%, #93291E 100%)",
+
+                                                }}
+                                                onClick={this.firstzero}>Zero</a><br />
+
+
+                                            <button type="submit" style={{
+                                                fontFamily: "MyFont",
+
+                                                display: "inline-block",
+                                                padding: "0.5em 1em",
+                                                textDecoration: "none",
+                                                background: "#f7f7f7",
+                                                borderLeft: "solid 6px #ff7c5c",
+                                                color: "#ff7c5c",
+                                                fontWeight: "bold",
+                                                boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.29)",
+                                                marginTop: "12px"
+
+                                            }}>Re-Invest</button>
+
+
+                                        </form>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div >
+        )
+    }
+}
+
+export default Plan

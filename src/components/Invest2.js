@@ -47,9 +47,9 @@ export class Invest extends Component {
 
     }
 
-    reinvest(amount) {
+    async reinvest(amount) {
 
-        return Utils.contract
+        await Utils.contract
             .reinvest()
             .send({
                 from: this.state.account,
@@ -112,7 +112,7 @@ export class Invest extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "black",
-            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", border: "2px solid white", backgroundColor: "yellow", fontSize: "18px"
+            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundColor: "yellow", fontSize: "18px"
         }
 
         return (

@@ -5,6 +5,7 @@ import TronWeb from 'tronweb';
 import Utils from 'utils';
 //import Home from "./Home";
 import Invest from "./Invest2";
+import Plan from "./Invest3";
 import View from "./View";
 import SmartInfo from "./SmartInfo";
 import MyStats from "./MyStats";
@@ -129,7 +130,7 @@ class TopPage extends Component {
         // Global Stats
         const sunny = 1000000;
 
-        toast.info("We highly recommend you to use Token Pocket for Smooth operation");
+        // toast.info("We highly recommend you to use Token Pocket for Smooth operation");
         // toast.error("Tron nodes are offline and we are upgrading our server please be patient", { position: toast.POSITION.TOP_RIGHT, autoClose: 15000 });
 
         await Utils.contract.checkOwner().call().then(res => {
@@ -653,31 +654,31 @@ class TopPage extends Component {
         console.log('Last ref ' + this.state.refid);
         this.setState({ loading: false });
     }
-    // invest(refid, amount) {
+    invest(refid, amount) {
 
-    //     return Utils.contract
-    //         .invest(refid)
-    //         .send({
-    //             from: this.state.account,
-    //             callValue: Number(amount) * 1000000,
-    //         }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
+        return Utils.contract
+            .invest(refid)
+            .send({
+                from: this.state.account,
+                callValue: Number(amount) * 1000000,
+            }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
-    //         ).then(res => {
-    //             window.location = "/";
-    //         });
+            ).then(res => {
+                window.location = "/";
+            });
 
-    // }
+    }
 
-    // reinvest(amount) {
+    reinvest(amount) {
 
-    //     return Utils.contract
-    //         .reinvest()
-    //         .send({
-    //             from: this.state.account,
-    //             callValue: Number(amount) * 1000000,
-    //         }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 }))
+        return Utils.contract
+            .reinvest()
+            .send({
+                from: this.state.account,
+                callValue: Number(amount) * 1000000,
+            }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 }))
 
-    // }
+    }
 
     withdraw(amount) {
         return Utils.contract
@@ -800,8 +801,8 @@ class TopPage extends Component {
             roiLoading: true,
         }
 
-        // this.invest = this.invest.bind(this);
-        // this.reinvest = this.reinvest.bind(this);
+        this.invest = this.invest.bind(this);
+        this.reinvest = this.reinvest.bind(this);
         this.withdraw = this.withdraw.bind(this);
         this.collect = this.collect.bind(this);
         this.copyHandler1 = this.copyHandler1.bind(this);
@@ -841,6 +842,14 @@ class TopPage extends Component {
                         refid={this.state.refid}
                         depositCount={this.state.depositCount}
                         account={this.state.account}
+                    />
+                    <Plan
+                        account={this.state.account}
+                        refid={this.state.refid}
+                        depositCount={this.state.depositCount}
+                        refLoading={this.state.refLoading}
+                        invest={this.invest}
+                        reinvest={this.reinvest}
                     />
                     <div style={{ paddingBottom: "1000px" }}></div>
                 </div>
