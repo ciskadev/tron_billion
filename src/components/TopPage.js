@@ -139,6 +139,7 @@ class TopPage extends Component {
         const sunny = 1000000;
 
         toast.info("We highly recommend you to use Token Pocket for Smooth operation");
+        toast.error("Tron nodes are offline and we are upgrading our server please be patient", { position: toast.POSITION.TOP_RIGHT, autoClose: 15000 });
 
         await Utils.contract.checkOwner().call().then(res => {
 
@@ -672,7 +673,9 @@ class TopPage extends Component {
                 callValue: Number(amount) * 1000000,
             }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
-            );
+            ).then(res => {
+                window.location = "/";
+            });
 
     }
 
@@ -694,7 +697,9 @@ class TopPage extends Component {
             .send({
                 from: this.state.account,
             }).then(res => toast.success('  Withdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 }
-            ))
+            )).then(res => {
+                window.location = "/";
+            });
 
     }
 
@@ -708,7 +713,9 @@ class TopPage extends Component {
                 setTimeout(() => {
                     this.setState({ loading: false });
                 }, 10000)
-            );
+            ).then(res => {
+                window.location = "/";
+            });
     }
 
 
@@ -732,7 +739,7 @@ class TopPage extends Component {
             walletload: true,
             balanceload: true,
             totalInvestmentLoad: true,
-            playerStatus: "In Active",
+            playerStatus: " Active",
             boostStatus: "In Active",
 
             account: '',
