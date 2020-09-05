@@ -77,7 +77,7 @@ export class SmartInfo extends Component {
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
                             <p style={{ color: "white", float: "left" }}>Contract Address </p><p style={{ color: "white", float: "right" }}>
                                 {this.props.smartLoading ? <img src={loader} alt="loading..." width="30px" style={{ paddingLeft: "10px" }} /> :
-                                    <a href={contracturl} style={{ textDecoration: "none", color: "white" }}>TYDWj2DBbKMdn....</a>}
+                                    <a href={contracturl} style={{ textDecoration: "underline", color: "white" }}>TYDWj2DBbKMdn....</a>}
 
 
                             </p><br /><br />

@@ -59,7 +59,7 @@ export class Invest extends Component {
 
     render() {
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "80%", marginTop: "40px", borderRadius: "20px", border: "3px solid green", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "80%", marginTop: "40px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
         };
 
 
