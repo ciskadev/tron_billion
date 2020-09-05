@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import back1 from "./img/gifback6.gif"
+import back1 from "./img/gifback3.gif"
 import TronWeb from 'tronweb';
 import Utils from 'utils';
 //import Home from "./Home";
