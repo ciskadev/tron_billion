@@ -837,12 +837,12 @@ class TopPage extends Component {
                         <a href={url} >  <img src={require("./img/logo2.png")} alt="Logo" width="300px" /></a>
                     </div>
 
-                    <Invest
+                    {/* <Invest
                         refLoading={this.state.refLoading}
                         refid={this.state.refid}
                         depositCount={this.state.depositCount}
                         account={this.state.account}
-                    />
+                    /> */}
                     <SmartInfo
                         smartLoading={this.state.smartLoading}
                         totalInvested={this.state.totalInvested}
