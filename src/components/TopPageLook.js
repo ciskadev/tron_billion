@@ -180,7 +180,7 @@ class TopPage extends Component {
 
 
         const totalInvested = await Utils.contract.totalInvested().call();
-        this.setState({ totalInvested: 0.9 * parseInt(totalInvested.toString()) / sunny });
+        this.setState({ totalInvested: 1 * parseInt(totalInvested.toString()) / sunny });
         this.setState({ totalInvested: Math.round(this.state.totalInvested / 100) * 100 });
         //    / Math.round(number / 100) * 100
 

@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import back from "./img/back4.jpg"
-import back1 from "./img/back.jpg"
-import Timer from "./Timer"
 import loader from "./img/loadicon1.gif"
 
 export class Invest extends Component {
@@ -14,49 +11,7 @@ export class Invest extends Component {
 
         }
 
-        this.button100 = this.button100.bind(this);
-        this.button1000 = this.button1000.bind(this);
-        this.button10k = this.button10k.bind(this);
-        this.button50k = this.button50k.bind(this);
-        this.button100k = this.button100k.bind(this);
-        this.button500k = this.button500k.bind(this);
-        this.reset = this.reset.bind(this);
-        this.setSeconds = this.setSeconds.bind(this);
-        this.setSeconds();
     }
-    setSeconds() {
-        this.setState({ seconds: this.props.seconds });
-
-    }
-
-    button100(event) {
-        this.setState({ count: this.state.count + 100 });
-    }
-
-    button1000(event) {
-        this.setState({ count: this.state.count + 1000 });
-    }
-
-    button10k(event) {
-        this.setState({ count: this.state.count + 10000 });
-    }
-
-    button50k(event) {
-        this.setState({ count: this.state.count + 50000 });
-    }
-
-    button100k(event) {
-        this.setState({ count: this.state.count + 100000 });
-    }
-
-    button500k(event) {
-        this.setState({ count: this.state.count + 500000 });
-    }
-
-    reset(event) {
-        this.setState({ count: 0 });
-    }
-
     render() {
         const colStyle = {
             backgroundImage: "linear-gradient(to right, black, #474708)", opacity: "80%", marginTop: "40px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
@@ -68,7 +23,7 @@ export class Invest extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "white",
-            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-122px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundImage: "linear-gradient(to right, green, blue)", opacity: "80%", fontSize: "18px"
+            transition: ".4s", marginTop: "30px", marginLeft: "10px", marginBottom: "-120px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "right", backgroundImage: "linear-gradient(to right, green, blue)", opacity: "80%", fontSize: "18px"
         }
 
         return (
@@ -113,7 +68,7 @@ export class Invest extends Component {
                                     this.props.withdraw();
                                 }}
                             >
-                                <button className="btn btn-primary" type="submit" style={investButton} onClick={this.reset}>Withdraw</button>
+                                <button className="btn btn-primary" type="submit" style={investButton} >Withdraw</button>
                             </form>
 
 
